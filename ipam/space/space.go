@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/rajch/weave/common"
-	"github.com/rajch/weave/net/address"
+	"github.com/kuttiproject/weave/common"
+	"github.com/kuttiproject/weave/net/address"
 )
 
 type Space struct {

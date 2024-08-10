@@ -8,9 +8,9 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/rajch/weave/common"
-	"github.com/rajch/weave/common/docker"
-	"github.com/rajch/weave/net/address"
+	"github.com/kuttiproject/weave/common"
+	"github.com/kuttiproject/weave/common/docker"
+	"github.com/kuttiproject/weave/net/address"
 )
 
 func badRequest(w http.ResponseWriter, err error) {

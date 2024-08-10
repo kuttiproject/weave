@@ -6,7 +6,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/rajch/weave/db"
+	"github.com/kuttiproject/weave/db"
 	"github.com/weaveworks/mesh"
 )
 

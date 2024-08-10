@@ -3,8 +3,8 @@ package main
 import (
 	"strconv"
 
-	"github.com/rajch/weave/common"
-	weavenet "github.com/rajch/weave/net"
+	"github.com/kuttiproject/weave/common"
+	weavenet "github.com/kuttiproject/weave/net"
 )
 
 func processAddrs(args []string) error {

@@ -10,10 +10,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/uuid"
 
-	"github.com/rajch/weave/common"
-	"github.com/rajch/weave/common/chains"
-	"github.com/rajch/weave/net/ipset"
-	"github.com/rajch/weave/npc/iptables"
+	"github.com/kuttiproject/weave/common"
+	"github.com/kuttiproject/weave/common/chains"
+	"github.com/kuttiproject/weave/net/ipset"
+	"github.com/kuttiproject/weave/npc/iptables"
 )
 
 var errInvalidNetworkPolicyObjType = errors.New("invalid NetworkPolicy object type")

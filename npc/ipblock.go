@@ -7,8 +7,8 @@ import (
 
 	networkingv1 "k8s.io/api/networking/v1"
 
-	"github.com/rajch/weave/common"
-	"github.com/rajch/weave/net/ipset"
+	"github.com/kuttiproject/weave/common"
+	"github.com/kuttiproject/weave/net/ipset"
 )
 
 type ipBlockSpec struct {

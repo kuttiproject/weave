@@ -4,7 +4,7 @@ package main
 import (
 	"net"
 
-	weavenet "github.com/rajch/weave/net"
+	weavenet "github.com/kuttiproject/weave/net"
 )
 
 func netcheck(args []string) error {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/rajch/weave/common"
+	"github.com/kuttiproject/weave/common"
 )
 
 // Using 32-bit integer to represent IPv4 address

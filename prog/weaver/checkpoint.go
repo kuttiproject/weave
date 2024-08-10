@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	weave "github.com/rajch/weave/router"
+	weave "github.com/kuttiproject/weave/router"
 	checkpoint "github.com/weaveworks/go-checkpoint"
 )
 

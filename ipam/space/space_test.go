@@ -3,8 +3,8 @@ package space
 import (
 	"testing"
 
-	"github.com/rajch/weave/net/address"
-	wt "github.com/rajch/weave/testing"
+	"github.com/kuttiproject/weave/net/address"
+	wt "github.com/kuttiproject/weave/testing"
 	"github.com/stretchr/testify/require"
 )
 

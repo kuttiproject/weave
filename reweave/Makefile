@@ -1,5 +1,5 @@
 IMAGE_VERSION ?= 2.8.9
-REGISTRY_USER ?= rajchaudhuri
+REGISTRY_USER ?= kuttiproject
 
 ALPINE_BASEIMAGE ?= alpine:3.20.2
 

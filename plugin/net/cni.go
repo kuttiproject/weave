@@ -13,9 +13,9 @@ import (
 	"github.com/containernetworking/cni/pkg/types"
 	current "github.com/containernetworking/cni/pkg/types/100"
 	"github.com/containernetworking/plugins/pkg/ipam"
-	weaveapi "github.com/rajch/weave/api"
-	weavenet "github.com/rajch/weave/net"
-	ipamplugin "github.com/rajch/weave/plugin/ipam"
+	weaveapi "github.com/kuttiproject/weave/api"
+	weavenet "github.com/kuttiproject/weave/net"
+	ipamplugin "github.com/kuttiproject/weave/plugin/ipam"
 	"github.com/vishvananda/netlink"
 	"github.com/vishvananda/netns"
 )

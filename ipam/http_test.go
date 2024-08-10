@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/rajch/weave/common"
-	"github.com/rajch/weave/net/address"
+	"github.com/kuttiproject/weave/common"
+	"github.com/kuttiproject/weave/net/address"
 	"github.com/stretchr/testify/require"
 )
 

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	weavenet "github.com/rajch/weave/net"
+	weavenet "github.com/kuttiproject/weave/net"
 )
 
 func uniqueID(args []string) error {

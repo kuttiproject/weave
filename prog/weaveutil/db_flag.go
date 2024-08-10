@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/rajch/weave/db"
+	"github.com/kuttiproject/weave/db"
 )
 
 const dbFlagPrefix = "flag:"

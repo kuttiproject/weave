@@ -10,11 +10,11 @@ import (
 	"github.com/docker/libnetwork/types"
 	"golang.org/x/sys/unix"
 
-	weaveapi "github.com/rajch/weave/api"
-	"github.com/rajch/weave/common"
-	"github.com/rajch/weave/common/docker"
-	weavenet "github.com/rajch/weave/net"
-	"github.com/rajch/weave/plugin/skel"
+	weaveapi "github.com/kuttiproject/weave/api"
+	"github.com/kuttiproject/weave/common"
+	"github.com/kuttiproject/weave/common/docker"
+	weavenet "github.com/kuttiproject/weave/net"
+	"github.com/kuttiproject/weave/plugin/skel"
 	"github.com/vishvananda/netlink"
 )
 

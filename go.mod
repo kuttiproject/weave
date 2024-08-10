@@ -1,4 +1,4 @@
-module github.com/rajch/weave
+module github.com/kuttiproject/weave
 
 go 1.21
 

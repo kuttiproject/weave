@@ -8,7 +8,7 @@ import (
 
 func TestRegressionHandleNil3095(t *testing.T) {
 	// Test for handling nil values
-	// https://github.com/rajch/weave/issues/3095
+	// https://github.com/kuttiproject/weave/issues/3095
 
 	rs := newRuleSpec(policyTypeIngress, nil, nil, nil, nil)
 

@@ -19,13 +19,13 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/rajch/weave/common"
-	"github.com/rajch/weave/common/chains"
-	"github.com/rajch/weave/net"
-	"github.com/rajch/weave/net/ipset"
-	"github.com/rajch/weave/npc"
-	"github.com/rajch/weave/npc/metrics"
-	"github.com/rajch/weave/npc/ulogd"
+	"github.com/kuttiproject/weave/common"
+	"github.com/kuttiproject/weave/common/chains"
+	"github.com/kuttiproject/weave/net"
+	"github.com/kuttiproject/weave/net/ipset"
+	"github.com/kuttiproject/weave/npc"
+	"github.com/kuttiproject/weave/npc/metrics"
+	"github.com/kuttiproject/weave/npc/ulogd"
 )
 
 var (
