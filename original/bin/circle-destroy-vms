@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e
-
-source "$SRCDIR/bin/circle-env"
-cd "$SRCDIR/test"
-./run-integration-tests.sh destroy

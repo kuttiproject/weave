@@ -11,7 +11,6 @@ require (
 	github.com/coreos/go-iptables v0.6.0
 	github.com/docker/docker v25.0.6+incompatible
 	github.com/docker/libnetwork v0.8.0-dev.2.0.20180212220201-119badbd737b
-	github.com/docker/machine v0.14.0
 	github.com/fsouza/go-dockerclient v1.10.0
 	github.com/google/gopacket v1.1.16
 	github.com/gorilla/mux v1.8.0
