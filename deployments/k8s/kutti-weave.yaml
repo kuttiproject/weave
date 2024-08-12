@@ -7,6 +7,7 @@ items:
       name: weave-net
       labels:
         name: weave-net
+        fork: kuttiproject
       namespace: kube-system
   - apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRole
@@ -14,6 +15,7 @@ items:
       name: weave-net
       labels:
         name: weave-net
+        fork: kuttiproject
     rules:
       - apiGroups:
           - ''
@@ -54,6 +56,7 @@ items:
       name: weave-net
       labels:
         name: weave-net
+        fork: kuttiproject
     roleRef:
       kind: ClusterRole
       name: weave-net
@@ -69,6 +72,7 @@ items:
       namespace: kube-system
       labels:
         name: weave-net
+        fork: kuttiproject
     rules:
       - apiGroups:
           - ''
@@ -92,6 +96,7 @@ items:
       namespace: kube-system
       labels:
         name: weave-net
+        fork: kuttiproject
     roleRef:
       kind: Role
       name: weave-net
@@ -100,24 +105,30 @@ items:
       - kind: ServiceAccount
         name: weave-net
         namespace: kube-system
-  - apiVersion: extensions/v1beta1
+  - apiVersion: apps/v1
     kind: DaemonSet
     metadata:
       name: weave-net
       labels:
         name: weave-net
+        fork: kuttiproject
       namespace: kube-system
     spec:
       # Wait 5 seconds to let pod connect before rolling next pod
+      selector:
+        matchLabels:
+          name: weave-net
+          fork: kuttiproject
       minReadySeconds: 5
       template:
         metadata:
           labels:
             name: weave-net
+            fork: kuttiproject
         spec:
           initContainers:
             - name: weave-init
-              image: 'rajchaudhuri/weave-kube:latest'
+              image: 'kuttiproject/weave-kube:latest'
               imagePullPolicy: Always
               command:
                 - /home/weave/init.sh
@@ -150,7 +161,7 @@ items:
                       fieldPath: spec.nodeName
                 - name: CHECKPOINT_DISABLE
                   value: "1"
-              image: 'rajchaudhuri/weave-kube:latest'
+              image: 'kuttiproject/weave-kube:latest'
               imagePullPolicy: Always
               readinessProbe:
                 httpGet:
@@ -181,7 +192,7 @@ items:
                     fieldRef:
                       apiVersion: v1
                       fieldPath: spec.nodeName
-              image: 'rajchaudhuri/weave-npc:latest'
+              image: 'kuttiproject/weave-npc:latest'
               imagePullPolicy: Always
 #npc-args
               resources:
@@ -194,6 +205,7 @@ items:
                   mountPath: /run/xtables.lock
                   readOnly: false
           hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
           hostPID: false
           restartPolicy: Always
           securityContext:
@@ -230,5 +242,6 @@ items:
               hostPath:
                 path: /run/xtables.lock
                 type: FileOrCreate
+          priorityClassName: system-node-critical
       updateStrategy:
         type: RollingUpdate

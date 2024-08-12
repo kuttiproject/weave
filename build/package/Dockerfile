@@ -3,7 +3,8 @@ ARG ALPINE_BASEIMAGE
 
 ########
 # Stage 1: Builderbase
-# This stage will build all Weave Net executables.
+# This stage will set up a build environment with all
+# necessary dependencies.
 FROM golang:1.22.6-alpine3.20 AS builderbase
 ARG BUILDARCH
 ARG TARGETARCH
@@ -18,13 +19,12 @@ COPY go.* .
 RUN go mod download -x
 RUN apk update && \
     apk add build-base libpcap-dev
-# RUN <<EOMAKE
-# cd reweave/build 
-# CGO_ENABLED=1 make all
-# EOMAKE
 # End Stage 1
 ########
 
+########
+# Stage 2: Builder
+# This stage will build all Weave Net executables.
 FROM builderbase AS builder
 ARG BUILDARCH
 ARG TARGETARCH
@@ -36,13 +36,15 @@ ENV WEAVE_VERSION=${WEAVE_VERSION}
 COPY . .
 
 RUN <<EOMAKE
-cd reweave/build 
+cd build/package
 CGO_ENABLED=1 make all
 EOMAKE
+# End Stage 2
+########
 
 
 ########
-# Stage 2: Alpine Base
+# Stage 3: Alpine Base
 # This stage adds packages common to both add-on
 # and network policy controller, and allows for
 # any further tweaks required on top of the base
@@ -60,11 +62,11 @@ ln -sf /sbin/iptables-legacy-save /sbin/iptables-save
 ln -sf /sbin/iptables-legacy-restore /sbin/iptables-restore
 EOBASE
 # Any additional tweaks will appear here
-# End Stage 2
+# End Stage 3
 ########
 
 ########
-# Stage 3: weavekube image
+# Stage 4: weavekube image
 # This will be tagged as REGISTRY_USER/weave-kube:VERSION
 FROM alpinebase AS weavekubeimage
 LABEL maintainer="Kutti Project <support@kuttiproject.org>"
@@ -80,21 +82,21 @@ RUN <<EOWEAVER
 EOWEAVER
 
 WORKDIR /home/weave
-COPY --from=builder /root/weave/weave \
+COPY --from=builder /root/weave/assets/weave \
                     /root/weave/cmd/weaver/weaver \
-                    /root/weave/cmd/weave-kube/init.sh \
-                    /root/weave/cmd/weave-kube/launch.sh \
+                    /root/weave/assets/weave-kube/init.sh \
+                    /root/weave/assets/weave-kube/launch.sh \
                     /root/weave/cmd/kube-utils/kube-utils \
                     /home/weave/
 COPY --from=builder /root/weave/cmd/weaveutil/weaveutil /usr/bin/
-COPY --from=builder /root/weave/cmd/weaver/weavedata.db /weavedb/
+COPY --from=builder /root/weave/assets/weaver/weavedata.db /weavedb/
 
 ENTRYPOINT ["/home/weave/launch.sh"]
-# End Stage 3
+# End Stage 4
 ########
 
 ########
-# Stage 4: weavenpc image
+# Stage 5: weavenpc image
 # This will be tagged as REGISTRY_USER/weave-npc:VERSION
 FROM alpinebase AS weavenpcimage
 LABEL maintainer="Kutti Project <support@kuttiproject.org>"
@@ -105,9 +107,11 @@ RUN <<EONPC
       mknod /var/log/ulogd.pcap p      
       rm -rf /var/cache/apk/*
 EONPC
+
 COPY --from=builder /root/weave/cmd/weave-npc/weave-npc /usr/bin/weave-npc
-COPY --from=builder /root/weave/cmd/weave-npc/ulogd.conf /etc/ulogd.conf
-COPY --from=builder /root/weave/cmd/weave-npc/launch.sh /usr/bin/
+COPY --from=builder /root/weave/assets/weave-npc/ulogd.conf /etc/ulogd.conf
+COPY --from=builder /root/weave/assets/weave-npc/launch.sh /usr/bin/
+
 ENTRYPOINT ["/usr/bin/launch.sh"]
-# End Stage 4
+# End Stage 5
 ########

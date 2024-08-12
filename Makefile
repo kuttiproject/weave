@@ -1,7 +1,9 @@
-IMAGE_VERSION ?= 2.8.9-beta3
+IMAGE_VERSION ?= 2.8.9-beta4
 REGISTRY_USER ?= kuttiproject
 
 ALPINE_BASEIMAGE ?= alpine:3.20.2
+
+PLATFORMS ?= linux/amd64,linux/arm,linux/arm64,linux/ppc64le,linux/s390x
 
 # Targets
 .PHONY: build-images
@@ -10,7 +12,7 @@ build-images:
 	PLATFORMS="$$(docker version -f '{{ .Server.Arch }}')" \
 	ALPINE_BASEIMAGE=$(ALPINE_BASEIMAGE) \
 	PUBLISH=false \
-	tools/build-images.sh
+	scripts/build-images.sh
 
 .PHONY: build
 build: build-images
@@ -18,10 +20,10 @@ build: build-images
 .PHONY: publish-images
 publish-images: 
 	REGISTRY_USER=${REGISTRY_USER} IMAGE_VERSION=${IMAGE_VERSION} \
-	PLATFORMS="linux/amd64" \
+	PLATFORMS="$(PLATFORMS)" \
 	ALPINE_BASEIMAGE=$(ALPINE_BASEIMAGE) \
 	PUBLISH=true \
-	tools/build-images.sh
+	scripts/build-images.sh
 
 .PHONY: publish
 publish: publish-images
@@ -29,7 +31,7 @@ publish: publish-images
 .PHONY: clean-images
 clean-images:
 	REGISTRY_USER=${REGISTRY_USER} IMAGE_VERSION=${IMAGE_VERSION} \
-	tools/clean-images.sh
+	scripts/clean-images.sh
 
 .PHONY: clean
 clean: clean-images
@@ -37,8 +39,8 @@ clean: clean-images
 .PHONY: scan
 scan:
 	REGISTRY_USER=${REGISTRY_USER} IMAGE_VERSION=${IMAGE_VERSION} \
-	tools/scan-images.sh
+	scripts/scan-images.sh
 
 .PHONY: clean-scan
 clean-scan:
-	tools/clean-scans.sh
+	scripts/clean-scans.sh

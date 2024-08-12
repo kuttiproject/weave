@@ -55,7 +55,7 @@ build_image() {
     # Get directory of script file
     a="/$0"; a="${a%/*}"; a="${a:-.}"; a="${a##/}/"; BINDIR=$(cd "$a"; pwd)
     
-    cd "$BINDIR/../.."
+    cd "$BINDIR/.."
 
     # shellcheck disable=SC2086
     docker buildx build \
@@ -67,7 +67,7 @@ build_image() {
             --build-arg=WEAVE_VERSION=${WEAVE_VERSION} \
             --build-arg=revision=${GIT_REVISION} \
             --build-arg=imageversion=${IMAGE_VERSION} \
-            -f reweave/build/Dockerfile \
+            -f build/package/Dockerfile \
             -t "${IMAGETAG}" \
             ${PUBLISHTAGOPT} \
             .
@@ -75,8 +75,5 @@ build_image() {
     cd -
 }
 
-# shellcheck nodisable=SC2086
-{
 build_image "weavekubeimage" "${WEAVEKUBE_IMAGE}"
 build_image "weavenpcimage" "${WEAVENPC_IMAGE}"
-}

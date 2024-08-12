@@ -9,7 +9,6 @@ BUILDARCH?=amd64
 
 # A list of all supported architectures here.
 # ALL_ARCHITECTURES=amd64 arm arm64 ppc64le s390x
-ALL_ARCHITECTURES=amd64 arm64
 
 # The default version that's chosen when pushing the images. Can/should
 # be overridden
