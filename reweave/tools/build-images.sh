@@ -13,11 +13,16 @@ fi
 
 # These variables are used to control the build process
 # Change with care.
-: "${ALPINE_BASEIMAGE:=alpine:3.19.1}"
+: "${ALPINE_BASEIMAGE:=}"
 : "${WEAVE_VERSION=${IMAGE_VERSION}}"
 : "${GIT_REVISION=$(git rev-parse HEAD)}"
 : "${PLATFORMS:=linux/amd64,linux/arm,linux/arm64,linux/ppc64le,linux/s390x}"
 : "${PUBLISH:=}"
+
+if [ -z "${ALPINE_BASEIMAGE}" ] ; then
+    >&2 echo "Please provide a valid value for ALPINE_BASEIMAGE." 
+    exit 1
+fi
 
 if [ "$PUBLISH" = "true" ]; then
     POSTBUILD="--push"
@@ -28,12 +33,8 @@ else
 fi
 
 # These are the names of the images
-WEAVER_IMAGE=${REGISTRY_USER}/weave
-WEAVEEXEC_IMAGE=${REGISTRY_USER}/weaveexec
 WEAVEKUBE_IMAGE=${REGISTRY_USER}/weave-kube
 WEAVENPC_IMAGE=${REGISTRY_USER}/weave-npc
-WEAVEDB_IMAGE=${REGISTRY_USER}/weavedb
-NETWORKTESTER_IMAGE=${REGISTRY_USER}/network-tester
 
 build_image() {
     IMAGENAME=$2
@@ -74,12 +75,8 @@ build_image() {
     cd -
 }
 
-# shellcheck disable=SC2086
+# shellcheck nodisable=SC2086
 {
-build_image "weaverimage" ${WEAVER_IMAGE}
-build_image "weavexecimage" ${WEAVEEXEC_IMAGE}
-build_image "weavekubeimage" ${WEAVEKUBE_IMAGE}
-build_image "weavenpcimage" ${WEAVENPC_IMAGE}
-build_image "weavedbimage" ${WEAVEDB_IMAGE}
-build_image "networktesterimage" ${NETWORKTESTER_IMAGE}
+build_image "weavekubeimage" "${WEAVEKUBE_IMAGE}"
+build_image "weavenpcimage" "${WEAVENPC_IMAGE}"
 }

@@ -58,36 +58,9 @@ Don't forget to `docker logout` afterwards.
 
 The Dockerfile can be found at [reweave/build/Dockerfile](build/Dockerfile). It, and the companion [Makefile](#makefile), build multi-arch images for all weave components.
 
-#### Stage 1 (builderbase)
-
-The first stage creates a build environment for cross-compiling all weave net executables for all supported architectures. It is built only once for a given build platform. It starts with `golang:1.20.2-bullseye` as a base, and does the following:
-
-* Installs build essentials and cross-compilers for all supported architectures.
-* Adds the Debian buster repositories. This is because the last supported version of `libpcap` that allows static linking (1.8.1) is not present in the Debian bullseye repos.
-* Installs `libpcap-dev`, pinned to v1.8.1.
-
-#### Stage 2 (builder)
-
-The second stage is where the weave net executables are built. It is built once for each target architecture.
-
-It starts from `builderbase` as the base, and does the following:
-
-* Sets environment variables indicating the current build and target architectures
-* Copies in the source code
-* Downloads modules
-* Uses a [Makefile](build/Makefile) to build all weave net executables for the target architecture
-
-#### Stage 3 (alpinebase)
-
-All weave net images ultimately derive from an Alpine base image. This stage allows customization of an official Alpine image, and using the customized image as the base for the weave net images.
-
-#### Subsequent stages
-
-Each of the subsequent stages builds one image, corresponding to one component of weave net. These start from `alpinebase`, or `weaverimage` (Stage 4) as the base, and add what executables, scripts and configuration they need from `builder`.
-
 ### Makefile
 
-The [Makefile](build/Makefile) is a distilled version of the [old Makefile](../Makefile). It only builds executables. It invokes the correct C cross-compiler, and picks up the correct static `libpcap`, based on the target architecture. **It is meant be used only in Stage 2 of the build process, and not directly on a development environment.**
+The Makefile can be found at [reweave/build/Makefile](build/Makefile). It builds all necessary executables. **It is meant be used only in Stage 2 of the build process, and not directly on a development environment.**
 
 ## Build Tools
 
@@ -98,8 +71,8 @@ This makefile controls the build and scan processes. It provides the following p
 |Parameter|Description|Default value|
 |---|---|---|
 |IMAGE_VERSION|The tag part of the name (after `:`) for all weave net images.|*version set in makefile*|
-|REGISTRY_USER|The account name (with optional registry name in front) used to tag all weave net images.|`weaveworks`|
-|ALPINE_BASEIMAGE|The qualified name for the base Alpine image used to build all weave net images.|`alpine:3.18.2`|
+|REGISTRY_USER|The account name (with optional registry name in front) used to tag all weave net images.|`kuttiproject`|
+|ALPINE_BASEIMAGE|The qualified name for the base Alpine image used to build all weave net images.|*version set in makefile*|
 
 and the following targets:
 
@@ -108,43 +81,26 @@ and the following targets:
 |build-images|Builds images matching the architecture of the local Docker engine, and loads it into the local Docker engine. This is the default target.|
 |publish-images|Builds multi-architecture images for all configured architectures, and pushes them to the registry.|
 |clean-images|Removes images from the local docker engine.|
-|build-plugin|Builds the [weave Docker Network Plugin(v2)](https://www.weave.works/docs/net/latest/install/plugin/plugin-v2/) on the local Docker engine. Requires published images.|
-|publish-plugin|Pushes the plugin to the registry.|
-|clean-plugin|Removes the plugin from the local Docker engine.|
-|publish|Combines the publish-images and publish-plugin steps, in that order.|
-|clean|Combines the clean-images and clean-plugin steps, in that order.|
+|publish|Same as publish-images.|
+|clean|Sames as clean-images.|
 |scan|Scans the weave-kube and weave-npc images using the configured scanner (currently grype), and stores the results in `reweave/scans`.|
 |clean-scan|Deletes scan results.|
 
 ### reweave/tools/build-images.sh
 
-This script invokes `docker buildx build` for each stage from stage 4 onwards. By default, it builds for all supported platforms, tags the image as `weaveworks/IMAGENAME:CURRENTVERSION`, and keeps them in the build cache. This behavior can be controlled by setting the following environment variables before invoking the script.
+This script invokes `docker buildx build` for each stage from stage 4 onwards. By default, it builds for all supported platforms, tags the image as `kuttiproject/IMAGENAME:CURRENTVERSION`, and keeps them in the build cache. This behavior can be controlled by setting the following environment variables before invoking the script.
 
 |Env Var Name|Description|Default Value|
 |---|---|---|
 |IMAGE_VERSION|The tag part of the name (after `:`) for all weave net images.|*version set in Makefile*|
 |REGISTRY_USER|The account name (with optional registry name in front) used to tag all weave net images.|*user set in Makefile*|
-|ALPINE_BASEIMAGE|The qualified name for the base Alpine image used to build all weave net images.|`alpine:3.18.2`|
+|ALPINE_BASEIMAGE|The qualified name for the base Alpine image used to build all weave net images.|*version set in Makefile*|
 |PLATFORMS|Comma-separated list of the target platforms for which the weave net images will be built.|`linux/amd64,linux/arm,linux/arm64,linux/ppc64le,linux/s390x`|
 |PUBLISH|Whether to push the images after build (`true`) , or load them to the local Docker engine (`false`). `false` is only possible if PLATFORMS has the same value as the build platform. If left empty, the images will be built in the build cache only.||
 
 ### reweave/tools/clean-images.sh
 
 This script deletes the built images from the local Docker engine.
-
-### reweave/tools/build-plugin.sh
-
-This script builds the weave managed network plugin on the local Docker engine. It requires the following environment variables to be set:
-
-|Env Var Name|Description|Default Value|
-|---|---|---|
-|IMAGE_VERSION|The tag part of the name (after `:`) for the plugin.|*version set in Makefile*|
-|REGISTRY_USER|The account name (with optional registry name in front) used to tag all weave net images.|*user set in Makefile*|
-|PUBLISH|Whether to push the plugin to the Docker Hub after build (`true`) , or not (`false` or empty).||
-
-### reweave/tools/clean-plugin.sh
-
-This script deletes the weave managed plugin from the local Docker engine.
 
 ### reweave/tools/scan-images.sh
 

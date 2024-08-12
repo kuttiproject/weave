@@ -5,7 +5,7 @@ set -e
 # required.
 : "${IMAGE_VERSION:=}"
 : "${REGISTRY_USER:=}"
-: "${IMAGE_LIST:=weave-kube weave-npc weave weaveexec}"
+: "${IMAGE_LIST:=weave-kube weave-npc}"
 
 if [ -z "${IMAGE_VERSION}" ] || [ -z "${REGISTRY_USER}" ] ; then
     >&2 echo "Please provide valid values for IMAGE_VERSION and REGISTRY_USER." 
