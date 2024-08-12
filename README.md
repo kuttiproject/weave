@@ -1,6 +1,6 @@
 # Kutti Weave
 
-This repository contains a fork of Weave Net, the first product developed by Weaveworks, currently community-maintained at [github.com/kuttiproject/weave](https://github.com/kuttiproject/weave). It is intended to be a lightweight CNI add-on for Kubernetes, meant for small clusters and non-production use. Unlike the full Weave Net, it is not intended for use with Docker. 
+This repository contains a fork of Weave Net, the first product developed by Weaveworks, currently community-maintained at [github.com/rajch/weave](https://github.com/rajch/weave). This fork is intended to be a lightweight CNI add-on for Kubernetes, meant for small clusters and non-production use. Unlike the full Weave Net, it is not intended for use with Docker. 
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/kuttiproject/weave)](https://goreportcard.com/report/github.com/kuttiproject/weave)
 [![Docker Pulls](https://img.shields.io/docker/pulls/kuttiproject/weave-kube "Number of times the kutti weave-kube image was pulled from the Docker Hub")](https://hub.docker.com/r/kuttiproject/weave-kube)
@@ -11,6 +11,6 @@ This repository contains a fork of Weave Net, the first product developed by Wea
 
 Work in progress.
 
-## Building Weave Net
+## Building Kutti Weave
 
 Work in progress.

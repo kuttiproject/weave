@@ -4,7 +4,6 @@ go 1.21
 
 require (
 	github.com/andybalholm/go-bit v1.0.1
-	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
 	github.com/aws/aws-sdk-go v1.34.0
 	github.com/boltdb/bolt v1.3.1
 	github.com/containernetworking/cni v1.1.2
@@ -17,7 +16,6 @@ require (
 	github.com/google/gopacket v1.1.16
 	github.com/gorilla/mux v1.8.0
 	github.com/j-keck/arping v0.0.0-20160618110441-2cf9dc699c56
-	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b
 	github.com/miekg/dns v1.1.52
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.2.1
@@ -32,15 +30,13 @@ require (
 	github.com/weaveworks/mesh v0.0.0-20191105120815-58dbcc3e8e63
 	golang.org/x/crypto v0.21.0
 	golang.org/x/sys v0.18.0
-	golang.org/x/tools v0.10.0
+	golang.org/x/tools v0.10.0 // indirect
 	k8s.io/api v0.26.2
 	k8s.io/apimachinery v0.26.2
 	k8s.io/client-go v0.26.2
 )
 
 require github.com/spf13/cobra v1.6.1
-
-require github.com/mattn/go-isatty v0.0.18 // indirect
 
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
@@ -74,7 +70,6 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.16.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
-	github.com/mattn/go-colorable v0.0.9 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/mdlayher/raw v0.0.0-20181016155347-fa5ef3332ca9 // indirect
 	github.com/moby/patternmatcher v0.6.0 // indirect
