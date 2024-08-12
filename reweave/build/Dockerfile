@@ -81,13 +81,13 @@ EOWEAVER
 
 WORKDIR /home/weave
 COPY --from=builder /root/weave/weave \
-                    /root/weave/prog/weaver/weaver \
-                    /root/weave/prog/weave-kube/init.sh \
-                    /root/weave/prog/weave-kube/launch.sh \
-                    /root/weave/prog/kube-utils/kube-utils \
+                    /root/weave/cmd/weaver/weaver \
+                    /root/weave/cmd/weave-kube/init.sh \
+                    /root/weave/cmd/weave-kube/launch.sh \
+                    /root/weave/cmd/kube-utils/kube-utils \
                     /home/weave/
-COPY --from=builder /root/weave/prog/weaveutil/weaveutil /usr/bin/
-COPY --from=builder /root/weave/prog/weaver/weavedata.db /weavedb/
+COPY --from=builder /root/weave/cmd/weaveutil/weaveutil /usr/bin/
+COPY --from=builder /root/weave/cmd/weaver/weavedata.db /weavedb/
 
 ENTRYPOINT ["/home/weave/launch.sh"]
 # End Stage 3
@@ -105,9 +105,9 @@ RUN <<EONPC
       mknod /var/log/ulogd.pcap p      
       rm -rf /var/cache/apk/*
 EONPC
-COPY --from=builder /root/weave/prog/weave-npc/weave-npc /usr/bin/weave-npc
-COPY --from=builder /root/weave/prog/weave-npc/ulogd.conf /etc/ulogd.conf
-COPY --from=builder /root/weave/prog/weave-npc/launch.sh /usr/bin/
+COPY --from=builder /root/weave/cmd/weave-npc/weave-npc /usr/bin/weave-npc
+COPY --from=builder /root/weave/cmd/weave-npc/ulogd.conf /etc/ulogd.conf
+COPY --from=builder /root/weave/cmd/weave-npc/launch.sh /usr/bin/
 ENTRYPOINT ["/usr/bin/launch.sh"]
 # End Stage 4
 ########

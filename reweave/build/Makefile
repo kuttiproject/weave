@@ -16,10 +16,10 @@ ALL_ARCHITECTURES=amd64 arm64
 WEAVE_VERSION?=git-$(shell git rev-parse --short=12 HEAD)
 
 # Paths to all relevant binaries that should be compiled
-WEAVER_EXE=../../prog/weaver/weaver
-KUBEUTILS_EXE=../../prog/kube-utils/kube-utils
-WEAVENPC_EXE=../../prog/weave-npc/weave-npc
-WEAVEUTIL_EXE=../../prog/weaveutil/weaveutil
+WEAVER_EXE=../../cmd/weaver/weaver
+KUBEUTILS_EXE=../../cmd/kube-utils/kube-utils
+WEAVENPC_EXE=../../cmd/weave-npc/weave-npc
+WEAVEUTIL_EXE=../../cmd/weaveutil/weaveutil
 
 # All binaries together in a list
 EXES=$(WEAVER_EXE) $(KUBEUTILS_EXE) $(WEAVENPC_EXE) $(WEAVEUTIL_EXE)
@@ -46,12 +46,12 @@ showbuild:
 	@echo Target Arch: $(ARCH)
 
 $(WEAVER_EXE) $(WEAVEUTIL_EXE): ../../internal/common/*.go ../../internal/common/*/*.go ../../internal/net/*.go ../../internal/net/*/*.go
-$(WEAVER_EXE): ../../internal/router/*.go ../../internal/ipam/*.go ../../internal/ipam/*/*.go ../../internal/db/*.go ../../internal/nameserver/*.go ../../prog/weaver/*.go
+$(WEAVER_EXE): ../../internal/router/*.go ../../internal/ipam/*.go ../../internal/ipam/*/*.go ../../internal/db/*.go ../../internal/nameserver/*.go ../../cmd/weaver/*.go
 $(WEAVER_EXE): ../../internal/api/*.go ../../internal/plugin/*.go ../../internal/plugin/*/*
 $(WEAVER_EXE):  ../../internal/proxy/*.go
-$(WEAVEUTIL_EXE): ../../prog/weaveutil/*.go ../../internal/net/*.go ../../internal/plugin/net/*.go ../../internal/plugin/ipam/*.go ../../internal/db/*.go
-$(KUBEUTILS_EXE): ../../prog/kube-utils/*.go
-$(WEAVENPC_EXE): ../../prog/weave-npc/*.go ../../internal/npc/*.go ../../internal/npc/*/*.go
+$(WEAVEUTIL_EXE): ../../cmd/weaveutil/*.go ../../internal/net/*.go ../../internal/plugin/net/*.go ../../internal/plugin/ipam/*.go ../../internal/db/*.go
+$(KUBEUTILS_EXE): ../../cmd/kube-utils/*.go
+$(WEAVENPC_EXE): ../../cmd/weave-npc/*.go ../../internal/npc/*.go ../../internal/npc/*/*.go
 
 exes: $(EXES) 
 
