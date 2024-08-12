@@ -5,7 +5,7 @@ import (
 
 	docker "github.com/fsouza/go-dockerclient"
 
-	weavenet "github.com/kuttiproject/weave/net"
+	weavenet "github.com/kuttiproject/weave/internal/net"
 )
 
 func containerAddrs(args []string) error {

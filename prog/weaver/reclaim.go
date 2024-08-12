@@ -6,13 +6,13 @@ import (
 
 	docker "github.com/fsouza/go-dockerclient"
 
-	"github.com/kuttiproject/weave/api"
-	"github.com/kuttiproject/weave/common"
-	weavedocker "github.com/kuttiproject/weave/common/docker"
-	"github.com/kuttiproject/weave/ipam"
-	"github.com/kuttiproject/weave/nameserver"
-	weavenet "github.com/kuttiproject/weave/net"
-	"github.com/kuttiproject/weave/net/address"
+	"github.com/kuttiproject/weave/internal/api"
+	"github.com/kuttiproject/weave/internal/common"
+	weavedocker "github.com/kuttiproject/weave/internal/common/docker"
+	"github.com/kuttiproject/weave/internal/ipam"
+	"github.com/kuttiproject/weave/internal/nameserver"
+	weavenet "github.com/kuttiproject/weave/internal/net"
+	"github.com/kuttiproject/weave/internal/net/address"
 	"github.com/weaveworks/mesh"
 )
 

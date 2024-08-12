@@ -4,7 +4,7 @@
 package main
 
 import (
-	weavenet "github.com/kuttiproject/weave/net"
+	weavenet "github.com/kuttiproject/weave/internal/net"
 )
 
 func checkNetwork() error {

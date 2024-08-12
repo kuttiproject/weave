@@ -2,9 +2,9 @@
 ARG ALPINE_BASEIMAGE
 
 ########
-# Stage 1: Builder
+# Stage 1: Builderbase
 # This stage will build all Weave Net executables.
-FROM golang:1.22.6-alpine3.20 AS builder
+FROM golang:1.22.6-alpine3.20 AS builderbase
 ARG BUILDARCH
 ARG TARGETARCH
 ARG WEAVE_VERSION
@@ -13,17 +13,33 @@ ENV BUILDARCH=${BUILDARCH}
 ENV WEAVE_VERSION=${WEAVE_VERSION}
 
 WORKDIR /root/weave
-COPY . .
+COPY go.* .
 
 RUN go mod download -x
 RUN apk update && \
     apk add build-base libpcap-dev
+# RUN <<EOMAKE
+# cd reweave/build 
+# CGO_ENABLED=1 make all
+# EOMAKE
+# End Stage 1
+########
+
+FROM builderbase AS builder
+ARG BUILDARCH
+ARG TARGETARCH
+ARG WEAVE_VERSION
+ENV ARCH=${TARGETARCH}
+ENV BUILDARCH=${BUILDARCH}
+ENV WEAVE_VERSION=${WEAVE_VERSION}
+
+COPY . .
+
 RUN <<EOMAKE
 cd reweave/build 
 CGO_ENABLED=1 make all
 EOMAKE
-# End Stage 1
-########
+
 
 ########
 # Stage 2: Alpine Base

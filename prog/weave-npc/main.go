@@ -19,13 +19,13 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/kuttiproject/weave/common"
-	"github.com/kuttiproject/weave/common/chains"
-	"github.com/kuttiproject/weave/net"
-	"github.com/kuttiproject/weave/net/ipset"
-	"github.com/kuttiproject/weave/npc"
-	"github.com/kuttiproject/weave/npc/metrics"
-	"github.com/kuttiproject/weave/npc/ulogd"
+	"github.com/kuttiproject/weave/internal/common"
+	"github.com/kuttiproject/weave/internal/common/chains"
+	"github.com/kuttiproject/weave/internal/net"
+	"github.com/kuttiproject/weave/internal/net/ipset"
+	"github.com/kuttiproject/weave/internal/npc"
+	"github.com/kuttiproject/weave/internal/npc/metrics"
+	"github.com/kuttiproject/weave/internal/npc/ulogd"
 )
 
 var (

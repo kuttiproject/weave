@@ -12,13 +12,13 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/weaveworks/mesh"
 
-	"github.com/kuttiproject/weave/common"
-	"github.com/kuttiproject/weave/ipam"
-	"github.com/kuttiproject/weave/nameserver"
-	"github.com/kuttiproject/weave/net/address"
-	"github.com/kuttiproject/weave/plugin"
-	"github.com/kuttiproject/weave/proxy"
-	weave "github.com/kuttiproject/weave/router"
+	"github.com/kuttiproject/weave/internal/common"
+	"github.com/kuttiproject/weave/internal/ipam"
+	"github.com/kuttiproject/weave/internal/nameserver"
+	"github.com/kuttiproject/weave/internal/net/address"
+	"github.com/kuttiproject/weave/internal/plugin"
+	"github.com/kuttiproject/weave/internal/proxy"
+	weave "github.com/kuttiproject/weave/internal/router"
 	"github.com/weaveworks/go-checkpoint"
 )
 

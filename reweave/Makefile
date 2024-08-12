@@ -1,4 +1,4 @@
-IMAGE_VERSION ?= 2.8.9-beta2
+IMAGE_VERSION ?= 2.8.9-beta3
 REGISTRY_USER ?= kuttiproject
 
 ALPINE_BASEIMAGE ?= alpine:3.20.2

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kuttiproject/weave/common/odp"
+	"github.com/kuttiproject/weave/internal/common/odp"
 )
 
 func createDatapath(args []string) error {

@@ -9,8 +9,8 @@ import (
 
 	"github.com/vishvananda/netns"
 
-	weavenet "github.com/kuttiproject/weave/net"
-	"github.com/kuttiproject/weave/proxy"
+	weavenet "github.com/kuttiproject/weave/internal/net"
+	"github.com/kuttiproject/weave/internal/proxy"
 )
 
 func attach(args []string) error {

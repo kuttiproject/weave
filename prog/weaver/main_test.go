@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	weavetest "github.com/kuttiproject/weave/testing"
+	weavetest "github.com/kuttiproject/weave/internal/testing"
 )
 
 func TestMain(t *testing.T) {

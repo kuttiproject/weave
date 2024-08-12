@@ -45,13 +45,13 @@ showbuild:
 	@echo Build Arch: $(BUILDARCH)
 	@echo Target Arch: $(ARCH)
 
-$(WEAVER_EXE) $(WEAVEUTIL_EXE): ../../common/*.go ../../common/*/*.go ../../net/*.go ../../net/*/*.go
-$(WEAVER_EXE): ../../router/*.go ../../ipam/*.go ../../ipam/*/*.go ../../db/*.go ../../nameserver/*.go ../../prog/weaver/*.go
-$(WEAVER_EXE): ../../api/*.go ../../plugin/*.go ../../plugin/*/*
-$(WEAVER_EXE):  ../../proxy/*.go
-$(WEAVEUTIL_EXE): ../../prog/weaveutil/*.go ../../net/*.go ../../plugin/net/*.go ../../plugin/ipam/*.go ../../db/*.go
+$(WEAVER_EXE) $(WEAVEUTIL_EXE): ../../internal/common/*.go ../../internal/common/*/*.go ../../internal/net/*.go ../../internal/net/*/*.go
+$(WEAVER_EXE): ../../internal/router/*.go ../../internal/ipam/*.go ../../internal/ipam/*/*.go ../../internal/db/*.go ../../internal/nameserver/*.go ../../prog/weaver/*.go
+$(WEAVER_EXE): ../../internal/api/*.go ../../internal/plugin/*.go ../../internal/plugin/*/*
+$(WEAVER_EXE):  ../../internal/proxy/*.go
+$(WEAVEUTIL_EXE): ../../prog/weaveutil/*.go ../../internal/net/*.go ../../internal/plugin/net/*.go ../../internal/plugin/ipam/*.go ../../internal/db/*.go
 $(KUBEUTILS_EXE): ../../prog/kube-utils/*.go
-$(WEAVENPC_EXE): ../../prog/weave-npc/*.go ../../npc/*.go ../../npc/*/*.go
+$(WEAVENPC_EXE): ../../prog/weave-npc/*.go ../../internal/npc/*.go ../../internal/npc/*/*.go
 
 exes: $(EXES) 
 

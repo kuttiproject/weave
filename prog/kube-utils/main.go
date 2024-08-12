@@ -24,8 +24,8 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/cache"
 
-	weaveapi "github.com/kuttiproject/weave/api"
-	"github.com/kuttiproject/weave/common"
+	weaveapi "github.com/kuttiproject/weave/internal/api"
+	"github.com/kuttiproject/weave/internal/common"
 )
 
 type nodeInfo struct {
