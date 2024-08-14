@@ -3,9 +3,6 @@ set -e
 
 [ -n "$WEAVE_DEBUG" ] && set -x
 
-# There is no longer a checkpoint service
-export CHECKPOINT_DISABLE=1
-
 # Release Version
 SCRIPT_VERSION="unreleased"
 IMAGE_VERSION=latest
@@ -157,7 +154,6 @@ exec_remote() {
         -e DOCKER_CLIENT_ARGS \
         -e PROXY_HOST="$PROXY_HOST" \
         -e COVERAGE \
-        -e CHECKPOINT_DISABLE \
         -e AWSVPC   \
         -e DOCKER_API_VERSION \
         -t \
@@ -1222,7 +1218,6 @@ launch() {
         -e WEAVE_HTTP_ADDR \
         -e WEAVE_PASSWORD \
         -e EXEC_IMAGE=$EXEC_IMAGE \
-        -e CHECKPOINT_DISABLE \
         $WEAVE_DOCKER_ARGS \
         $IMAGE \
         $COVERAGE_ARGS \

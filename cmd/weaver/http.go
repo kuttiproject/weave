@@ -19,7 +19,6 @@ import (
 	"github.com/kuttiproject/weave/internal/plugin"
 	"github.com/kuttiproject/weave/internal/proxy"
 	weave "github.com/kuttiproject/weave/internal/router"
-	"github.com/weaveworks/go-checkpoint"
 )
 
 var allConnectionStates = []string{"established", "pending", "retrying", "failed", "connecting"}
@@ -161,7 +160,7 @@ func defTemplate(name string, text string) *template.Template {
 }
 
 var statusTemplate = defTemplate("status", `\
-        Version: {{.Version}} ({{.VersionCheck}})
+        Version: {{.Version}}
 
         Service: router
        Protocol: {{.Router.Protocol}} \
@@ -265,33 +264,6 @@ type VersionCheck struct {
 	NextCheckAt time.Time
 }
 
-func versionCheck() *VersionCheck {
-	v := &VersionCheck{}
-	if checkpoint.IsCheckDisabled() {
-		return v
-	}
-
-	v.Enabled = true
-	v.Success = success.Load().(bool)
-	v.NewVersion = newVersion.Load().(string)
-	v.NextCheckAt = checker.NextCheckAt()
-
-	return v
-}
-
-func (v *VersionCheck) String() string {
-	switch {
-	case !v.Enabled:
-		return "version check update disabled"
-	case !v.Success:
-		return fmt.Sprintf("failed to check latest version - see logs; next check at %s", v.NextCheckAt.Format("2006/01/02 15:04:05"))
-	case v.NewVersion != "":
-		return fmt.Sprintf("version %s available - please upgrade!", v.NewVersion)
-	default:
-		return fmt.Sprintf("up to date; next check at %s", v.NextCheckAt.Format("2006/01/02 15:04:05"))
-	}
-}
-
 type WeaveStatus struct {
 	Ready        bool
 	Version      string
@@ -309,7 +281,7 @@ func HandleHTTP(muxRouter *mux.Router, version string, router *weave.NetworkRout
 		return WeaveStatus{
 			waitReady.IsDone(),
 			version,
-			versionCheck(),
+			nil, /*versionCheck(),*/
 			weave.NewNetworkRouterStatus(router),
 			ipam.NewStatus(allocator, defaultSubnet),
 			nameserver.NewStatus(ns, dnsserver),

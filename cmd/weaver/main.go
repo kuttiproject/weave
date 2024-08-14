@@ -378,19 +378,6 @@ func main() {
 	}
 
 	var dockerCli *docker.Client
-	dockerVersion := "none"
-	if dockerAPI != "" {
-		dc, err := docker.NewClient(dockerAPI)
-		if err != nil {
-			Log.Fatal("Unable to start docker client: ", err)
-		} else {
-			Log.Info(dc.Info())
-		}
-		dockerCli = dc
-		dockerVersion = dockerCli.DockerVersion()
-	}
-
-	checkForUpdates(dockerVersion, router, uint(len(peers)))
 
 	observeContainers := func(o docker.ContainerObserver) {
 		if dockerCli != nil {
