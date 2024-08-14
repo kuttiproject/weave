@@ -26,3 +26,7 @@ For now, the only way to build Kutti Weave is via the provided multi-stage Docke
 ```
 make
 ```
+
+## Kutti Weave Versions
+
+Kutti Weave v0.1.0 was forked from v2.8.9 of Weave Net. It will try and incorporate all relevant changes to Weave Net after that version, but will also make changes and additions of its own. Versioning will follow [semver](https://semver.org/) rules.
